@@ -11,6 +11,15 @@ COPY . .
 RUN npx prisma generate
 RUN npm run build
 
+
+# ... pasos anteriores ...
+RUN npx prisma generate
+
+# Variable temporal para pasar la evaluación estática de Next.js durante el build
+ENV JWT_SECRET="build_placeholder_secret_min_32_characters_12345"
+
+RUN npm run build
+
 # ---- Runner stage ----
 FROM node:22-slim AS runner
 
